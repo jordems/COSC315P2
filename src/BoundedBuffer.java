@@ -2,10 +2,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BoundedBuffer {
-    private static BoundedBuffer boundedBuffer = new BoundedBuffer();
-    private static Queue<Job> queue = new LinkedList<Job>();
+    private static BoundedBuffer boundedBuffer = new BoundedBuffer(5);
+    private static Job[] requestQueue;
 
-    private BoundedBuffer() {
+    private BoundedBuffer(int size) {
+        requestQueue = new Job[size];
     }
 
     public static BoundedBuffer getInstance() {
