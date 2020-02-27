@@ -8,22 +8,23 @@ public class ApacheProducerConsumer {
     public void run(int numSlaves, int maxDuration) {
         System.out.printf("APC: numSlaves: %d - maxDuration: %d\n", numSlaves, maxDuration);
         //
-        BoundedBuffer boundedBuffer = new BoundedBuffer(5);
-        Producer producer = new Producer(boundedBuffer);
-        Consumer[] consumers = new Consumer[5];
+        BoundedBuffer boundedBuffer = new BoundedBuffer(500);
+        Producer producer = new Producer(boundedBuffer, maxDuration);
+        // Run the Producer
+        producer.start();
 
         // Initalize Consumers
-        for (Consumer consumer : consumers) {
-            consumer = new Consumer(boundedBuffer);
+        for (int i = 0; i < numSlaves; i++) {
+            Consumer consumer = new Consumer(boundedBuffer);
+            consumer.start();
         }
 
-        // Run the Producer
-        producer.run(maxDuration);
 
-        // Run each of the consumers
-        for (Consumer consumer : consumers) {
-            consumer.run();
-        }
+
+//        // Run each of the consumers
+//        for (Consumer consumer : consumers) {
+//            consumer.run();
+//        }
 
     }
 }
