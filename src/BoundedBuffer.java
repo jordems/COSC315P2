@@ -1,24 +1,37 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoundedBuffer {
-    private static BoundedBuffer boundedBuffer = new BoundedBuffer();
-    private static Queue<Job> queue = new LinkedList<Job>();
+    private List<Job> buffer;
+    private int bufferSize;
+    private int currentIndex = 0;
 
-    private BoundedBuffer() {
+     BoundedBuffer(int bufferSize) throws IllegalArgumentException {
+        if(this.bufferSize <= 0) {
+            throw new IllegalArgumentException("Buffer must be greater than 1");
+        }
+        this.bufferSize = bufferSize;
+        this.buffer = new ArrayList<Job>(bufferSize);
     }
 
-    public static BoundedBuffer getInstance() {
-        return boundedBuffer;
+    public synchronized void put(Job job) throws InterruptedException {
+        while (buffer.size() == bufferSize) {
+            wait();
+        }
+
+        buffer.add(job);
+        currentIndex++;
+        notifyAll();
     }
 
-    // TODO Dylan
-    public static synchronized void put(Job job) throws InterruptedException {
+    public synchronized Job get() throws InterruptedException {
+        while (buffer.size() == 0) {
+            wait();
+        }
 
-    }
-
-    // TODO Dylan
-    public static synchronized Job get() throws InterruptedException {
-        return null;
+        Job job = buffer.remove(currentIndex);
+        currentIndex--;
+        notifyAll();
+        return job;
     }
 }
