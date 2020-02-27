@@ -11,12 +11,12 @@ public class ApacheProducerConsumer {
         System.out.printf("APC: numSlaves: %d - maxDuration: %d\n", numSlaves, maxDuration);
         //
         BoundedBuffer boundedBuffer = new BoundedBuffer(5);
-        Producer producer = new Producer();
+        Producer producer = new Producer(boundedBuffer);
         Consumer[] consumers = new Consumer[5];
 
         // Initalize Consumers
         for (Consumer consumer : consumers) {
-            consumer = new Consumer();
+            consumer = new Consumer(boundedBuffer);
         }
 
         try {
