@@ -2,8 +2,6 @@
 public class ApacheProducerConsumer {
 
     /**
-     *
-     * 
      * @param numSlaves   Number of Consumers
      * @param maxDuration Max duration of a request
      */
@@ -19,16 +17,12 @@ public class ApacheProducerConsumer {
             consumer = new Consumer(boundedBuffer);
         }
 
-        try {
-            // Run the Producer
-            producer.run(maxDuration);
+        // Run the Producer
+        producer.run(maxDuration);
 
-            // Run each of the consumers
-            for (Consumer consumer : consumers) {
-                consumer.run();
-            }
-        } catch (InterruptedException e) {
-            System.out.println("Produced Interruption Exception");
+        // Run each of the consumers
+        for (Consumer consumer : consumers) {
+            consumer.run();
         }
 
     }
