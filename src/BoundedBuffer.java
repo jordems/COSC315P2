@@ -13,12 +13,12 @@ public class BoundedBuffer {
     }
 
     // TODO Dylan
-    public static synchronized void put(Job job) throws InterruptedException {
+    public synchronized void put(Job job) throws InterruptedException {
 
     }
 
     // TODO Dylan
-    public static synchronized Job get() throws InterruptedException {
+    public synchronized Job get() throws InterruptedException {
         return null;
     }
 }
