@@ -1,22 +1,35 @@
 
 public class ApacheProducerConsumer {
-    private BoundedBuffer boundedBuffer;
-
-    public ApacheProducerConsumer() {
-        boundedBuffer = BoundedBuffer.getInstance();
-    }
 
     /**
-     * TODO Jordan
+     *
      * 
      * @param numSlaves   Number of Consumers
      * @param maxDuration Max duration of a request
      */
     public void run(int numSlaves, int maxDuration) {
-        Producer p1 = new Producer();
+        System.out.printf("APC: numSlaves: %d - maxDuration: %d\n", numSlaves, maxDuration);
+        //
+        BoundedBuffer boundedBuffer = new BoundedBuffer(5);
+        Producer producer = new Producer(boundedBuffer);
+        Consumer[] consumers = new Consumer[5];
 
-        Consumer c1 = new Consumer();
+        // Initalize Consumers
+        for (Consumer consumer : consumers) {
+            consumer = new Consumer(boundedBuffer);
+        }
 
-        System.out.printf("numSlaves: %d - maxDuration: %d\n", numSlaves, maxDuration);
+        try {
+            // Run the Producer
+            producer.run(maxDuration);
+
+            // Run each of the consumers
+            for (Consumer consumer : consumers) {
+                consumer.run();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Produced Interruption Exception");
+        }
+
     }
 }
