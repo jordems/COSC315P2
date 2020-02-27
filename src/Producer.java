@@ -3,7 +3,6 @@ import java.util.Random;
 public class Producer extends Thread {
 
     private BoundedBuffer boundedBuffer;
-    private int count = 0;
 
     public Producer(BoundedBuffer buffer) {
         boundedBuffer = buffer;
@@ -15,6 +14,7 @@ public class Producer extends Thread {
         try {
 
             Random randomGenerator = new Random();
+            int count = 0;
 
             while (true) {
 
