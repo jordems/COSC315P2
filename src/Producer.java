@@ -3,14 +3,16 @@ import java.util.Random;
 public class Producer extends Thread {
 
     private BoundedBuffer boundedBuffer;
+    private int maxDuration;
 
-    public Producer(BoundedBuffer buffer) {
+    public Producer(BoundedBuffer buffer, int maxDuration) {
         boundedBuffer = buffer;
+        this.maxDuration = maxDuration;
     }
 
     // Generates and puts Jobs in the request queue, sleeps for random short
     // duration
-    public void run(int maxDuration) {
+    public void run() {
         try {
 
             Random randomGenerator = new Random();
@@ -18,18 +20,18 @@ public class Producer extends Thread {
 
             while (true) {
 
-                int randomInt = randomGenerator.nextInt(maxDuration);
-                int randomDuration = randomGenerator.nextInt(5);
+                int randomInt = randomGenerator.nextInt(this.maxDuration) + 1;
+                int randomDuration = randomGenerator.nextInt(5) + 1;
 
-                System.out.print("Producer sleeping for " + randomDuration + " seconds.");
+                System.out.println("Producer sleeping for " + randomDuration + " seconds.");
 
-                sleep(randomDuration);
+                sleep(randomDuration * 1000);
 
                 Job job = new Job();
                 job.setID(count);
                 job.setDuration(randomInt);
 
-                System.out.print("Produced Job " + job.getID());
+                System.out.println("Produced Job " + job.getID());
 
                 boundedBuffer.put(job);
 
@@ -38,6 +40,7 @@ public class Producer extends Thread {
             }
 
         } catch (InterruptedException e) {
+            System.out.println(e);
         }
     }
 }

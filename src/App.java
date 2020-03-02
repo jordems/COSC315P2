@@ -10,6 +10,7 @@ public class App {
         int numSlaves = in.nextInt();
         System.out.print("Max Duration: ");
         int maxDuration = in.nextInt();
+        System.out.println();
 
         in.close();
 
