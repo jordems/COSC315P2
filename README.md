@@ -12,7 +12,11 @@
 
 ## Java-Implementation (Dylan)
 
-**TODO** Simple Java Description (Monitor Usage, Synchronous methods)
+The Java Implementation of the Producers-Consumers model makes use of multiple Java objects to split up and assign logic and tasks in an appropriate way. The producers and consumers were separate classes that implemented the thread class (making their operation occur in a separate thread then the master), and these threads are created and managed in the main `ApacheProducerConsumer` class. Both of these class are given the same instance of the `BoundedBuffer` class, which they will both interact with to communicate job objects. The BoundedBuffer acts as the Monitor in this case, managing the get and put actions on the buffer array in a synchronized way as to prevent data races on the buffer. In the runtime of the program, the number of desired consumers, and the maximum job length are retrieved from the user, then the BoundedBuffer, the producer thread, and all the necessary consumer threads are created, then each are started, which run forever producing and consuming jobs. 
+
+In the `get` syncronized method (called by the consumers), the BoundedBuffer first waits for there to actually be elements in the buffer and puts all the threads waiting for data to sleep with the `wait()` method. When there is data, exactly 1 thread will be able to retrieve an element from the buffer, removing the item from the array in the process. A `getIndex` and a `count` is maintained to ensure no `ArrayOutOfBoundsException`'s occur. Then the thread will notify the other threads that they can now interact with the buffer.
+
+In the `put` syncronized method (called by the producers), the BounderBuffer first waits for there to be at least 1 space available on the buffer and puts all the threads waiting to put data to sleep with the `wait()` method. When there is space, exactly 1 thread will be able to add an element to the buffer. A `putIndex` and a count is maintained to ensure no `ArrayOutofBoundsExceptions`'s occur. Then the thread will notify the other threads that they can now interact with the buffer.
 
 ## C-Implementation (Jordan)
 
