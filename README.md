@@ -28,4 +28,5 @@
 
 ## References (All)
 
-**TODO** Again state links that we used to help
+[Java Implementation Help - Dartmouth](https://www.cs.dartmouth.edu/~scot/cs10/lectures/27/27.html)
+[C Implementation Help - Stackoverflow](https://stackoverflow.com/a/19847934)
