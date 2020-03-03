@@ -117,7 +117,7 @@ void *consumer()
 }
 
 /**
- * Gets a job out of the Bounded Buffer with a manually made `synchronous` method
+ * Gets a job out of the Bounded Buffer with a manually made `synchronous` method using semaphores
  */
 int bufferGet()
 {
@@ -137,7 +137,7 @@ int bufferGet()
 }
 
 /**
- * Places job into Bounded Buffer within a manually made `synchronous` method
+ * Places job into Bounded Buffer within a manually made `synchronous` method using semaphores
  */
 void bufferPut(int job)
 {
