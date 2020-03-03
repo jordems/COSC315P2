@@ -6,26 +6,26 @@
 - **Dylan Baiko (50750158)**
 - **Jordan Emslie (20600152)**
 
-## Description
+## Description (Levi)
 
 **TODO** Simple Overall Description
 
-## Java-Implementation
+## Java-Implementation (Dylan)
 
 **TODO** Simple Java Description (Monitor Usage, Syncronous methods)
 
-## C-Implementation
+## C-Implementation (Jordan)
 
 **TODO** Simple C Description (Semaphore Usage, PThreads Usage)
 
-## Design Considerations
+## Design Considerations (Jordan)
 
 **TODO** What was our thought process when creating these Implementations + Link to external sources
 
-## Group Contributions
+## Group Contributions (All)
 
 **TODO** Group Contributions
 
-## References
+## References (All)
 
 **TODO** Again state links that we used to help
