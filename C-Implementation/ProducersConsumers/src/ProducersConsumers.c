@@ -4,6 +4,7 @@
 #include <semaphore.h>
 #include <stdbool.h>
 #include <time.h>
+#include <unistd.h>
 
 #define BUFFER_SIZE 500
 
@@ -73,6 +74,7 @@ void *producer()
 
 		int randDuration = randombyRange(1, maxDuration);
 		printf("\nProduced Job of length: %d", randDuration);
+		fflush(stdout);
 
 		bufferPut(randDuration);
 
@@ -87,19 +89,28 @@ void *producer()
  */
 void *consumer()
 {
+
 	printf("\nI am a consumer, My id is: %d", pthread_self());
 	fflush(stdout);
 
 	while (true)
 	{
 		int job = bufferGet();
-		clock_t startTime = clock();
+
+		struct timespec startTime, endTime;
+
+		// NOTE: CLOCK_MONOTONIC_RAW May not work on all devices
+		clock_gettime(CLOCK_MONOTONIC_RAW, &startTime);
 		printf("\nConsumer: %d, Consuming Job of duration: %d seconds", pthread_self(), job);
 		fflush(stdout);
 		sleep(job);
-		clock_t endTime = clock();
-		double total_t = (double)(endTime - startTime) / CLOCKS_PER_SEC;
-		printf("\nConsumer completed job in time: %d seconds.", total_t);
+		clock_gettime(CLOCK_MONOTONIC_RAW, &endTime);
+
+		double total_t = (double)((endTime.tv_nsec - startTime.tv_nsec) / 1000000000.0 +
+								  (endTime.tv_sec - startTime.tv_sec));
+
+		printf("\nConsumer: %d, Consumer completed job in time: %.2f seconds.", pthread_self(), total_t);
+		fflush(stdout);
 	}
 
 	return NULL;
