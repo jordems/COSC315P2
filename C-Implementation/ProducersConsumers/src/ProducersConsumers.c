@@ -61,8 +61,6 @@ int main()
  */
 void *producer()
 {
-	printf("\nI am a producer, My id is: %d", pthread_self());
-	fflush(stdout);
 
 	while (true)
 	{
@@ -90,26 +88,21 @@ void *producer()
 void *consumer()
 {
 
-	printf("\nI am a consumer, My id is: %d", pthread_self());
-	fflush(stdout);
+    clock_t startTime;
+    double totalTime;
 
 	while (true)
 	{
 		int job = bufferGet();
-
-		struct timespec startTime, endTime;
-
-		// NOTE: CLOCK_MONOTONIC_RAW May not work on all devices
-		clock_gettime(CLOCK_MONOTONIC_RAW, &startTime);
-		printf("\nConsumer: %d, Consuming Job of duration: %d seconds", pthread_self(), job);
+		printf("\nConsumer: %d", pthread_self());
+		printf(" Consuming Job of duration: %d seconds", job);
+		startTime = clock();
 		fflush(stdout);
 		sleep(job);
-		clock_gettime(CLOCK_MONOTONIC_RAW, &endTime);
+		totalTime = (double) (clock() - startTime) / CLOCKS_PER_SEC;
 
-		double total_t = (double)((endTime.tv_nsec - startTime.tv_nsec) / 1000000000.0 +
-								  (endTime.tv_sec - startTime.tv_sec));
-
-		printf("\nConsumer: %d, Consumer completed job in time: %.2f seconds.", pthread_self(), total_t);
+		printf("\nConsumer: %d", pthread_self());
+		printf(" Consumer completed job in time: %.2f seconds.", totalTime);
 		fflush(stdout);
 	}
 
