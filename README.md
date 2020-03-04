@@ -6,6 +6,12 @@
 - **Dylan Baiko (50750158)**
 - **Jordan Emslie (20600152)**
 
+## Run Instructions
+
+Java: Run `App.java`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
+
+C: Compile using `gcc ProducersConsumers.c -o app -lpthread` and then run using  `./app`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
+
 ## Description
 
 For this project we solved the producer-consumer synchronization problem in Java using monitors and in C using the pthreads library and semaphores. Both versions of our solution allow the user to specify the number of consumer threads to create as well as the max duration, which is the longest duration (in seconds) that can be generated when creating the random duration for each job. Our solutions continue to produce and consume until the user terminates the program, and the threads all print useful messages that indicate their actions. Overall, we found solving the producer-consumer problem in Java was easier and took less effort as the use of monitors simplified synchronization and it is a programming language that we are more familiar with.
