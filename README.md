@@ -8,9 +8,9 @@
 
 ## Run Instructions
 
-Java: Run `App.java`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
+Java: Open the Java project in the IDE of your choice, and specify your local Java SDK. Build and run `App.java`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
 
-C: Compile using `gcc ProducersConsumers.c -o app -lpthread` and then run using  `./app`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
+C: In your terminal navigate to C-Implmentation/ProducersConsumers/src and compile using `gcc ProducersConsumers.c -o app -lpthread` and then run using  `./app`. You will be prompted to enter a number for Consumers and Max Duration. The program will continue producing/consuming until you terminate it.
 
 ## Description
 
