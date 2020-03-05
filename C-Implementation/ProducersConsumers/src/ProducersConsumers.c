@@ -88,21 +88,17 @@ void *producer()
 void *consumer()
 {
 
-    clock_t startTime;
-    double totalTime;
-
 	while (true)
 	{
 		int job = bufferGet();
 		printf("\nConsumer: %d", pthread_self());
 		printf(" Consuming Job of duration: %d seconds", job);
-		startTime = clock();
+
 		fflush(stdout);
 		sleep(job);
-		totalTime = (double) (clock() - startTime) / CLOCKS_PER_SEC;
 
 		printf("\nConsumer: %d", pthread_self());
-		printf(" Consumer completed job in time: %.2f seconds.", totalTime);
+		printf(" Consumer completed job in time: %d seconds.", job);
 		fflush(stdout);
 	}
 
